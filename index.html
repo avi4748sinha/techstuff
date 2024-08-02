@@ -3,132 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChillOut Chat</title>
+    <title>Solution Matters</title>
     <style>
+        /* Base Styles */
         body {
             font-family: Arial, sans-serif;
-            background-color: #e0f7fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
         }
-        .chat-container {
-            width: 400px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
+
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
         }
-        .messages {
-            height: 400px;
-            padding: 10px;
-            overflow-y: auto;
-            border-bottom: 1px solid #ddd;
-            flex: 1;
-        }
-        .message {
-            margin-bottom: 15px;
-        }
-        .message p {
-            background: #b9fbc0;
-            padding: 10px;
-            border-radius: 10px;
-            display: inline-block;
-            max-width: 80%;
+
+        header h1 {
             margin: 0;
+            font-size: 2.5em;
         }
-        .message.user p {
-            background: #a2c2e5;
-            text-align: right;
+
+        .logo span {
+            color: red;
+            font-weight: bold;
         }
-        .message .timestamp {
-            font-size: 0.8em;
-            color: #888;
-            margin-top: 5px;
+
+        header p {
+            margin: 5px 0 15px;
         }
-        .input-area {
-            display: flex;
-            padding: 10px;
-            border-top: 1px solid #ddd;
-            background: #f1f1f1;
-        }
-        .input-area input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            outline: none;
-        }
-        .input-area input:focus {
-            border-color: #007bff;
-        }
-        .input-area button {
+
+        input[type="text"] {
             padding: 10px;
             border: none;
-            background: #007bff;
-            color: white;
             border-radius: 4px;
-            cursor: pointer;
-            margin-left: 5px;
+            width: 300px;
+            margin-right: 10px;
         }
-        .input-area button:hover {
-            background: #0056b3;
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #0056b3;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #004494;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        nav ul li a:hover {
+            background-color: #575757;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        section h2 {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        ul li a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode header {
+            background-color: #333;
+        }
+
+        body.dark-mode nav {
+            background-color: #222;
+        }
+
+        body.dark-mode section h2 {
+            background-color: #333;
+        }
+
+        body.dark-mode ul li a {
+            color: #1e90ff;
+        }
+
+        body.dark-mode button {
+            background-color: #1e90ff;
+        }
+
+        body.dark-mode button:hover {
+            background-color: #0f7bff;
+        }
+
+        .toggle-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .toggle-container label {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .toggle-container input[type="checkbox"] {
+            display: none;
+        }
+
+        .toggle-container .switch {
+            width: 40px;
+            height: 20px;
+            background: #ccc;
+            border-radius: 50px;
+            position: relative;
+            transition: background 0.3s;
+        }
+
+        .toggle-container .switch::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            transition: transform 0.3s;
+        }
+
+        .toggle-container input[type="checkbox"]:checked + .switch {
+            background: #007bff;
+        }
+
+        .toggle-container input[type="checkbox"]:checked + .switch::before {
+            transform: translateX(20px);
         }
     </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="messages" id="messageContainer"></div>
-        <div class="input-area">
-            <input type="text" id="messageInput" placeholder="Type a message..." />
-            <button onclick="sendMessage()">Send</button>
+    <header>
+        <div class="toggle-container">
+            <label>
+                <input type="checkbox" id="darkModeToggle">
+                <div class="switch"></div>
+            </label>
         </div>
-    </div>
-    <script src="/socket.io/socket.io.js"></script>
+        <h1><span class="logo">S</span>olution <span class="logo">M</span>atters</h1>
+        <p>Your go-to educational resource hub for engineering students.</p>
+        <input type="text" id="searchInput" placeholder="Search resources...">
+        <button onclick="searchResources()">Search</button>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#cs">Computer Science</a></li>
+            <li><a href="#cse">Computer Science & Engineering</a></li>
+            <li><a href="#iot">Internet of Things</a></li>
+            <li><a href="#mechanical">Mechanical Engineering</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="cs">
+            <h2>Computer Science</h2>
+            <ul>
+                <li><a href="https://www.khanacademy.org/computing/computer-science">Khan Academy - Computer Science</a></li>
+                <li><a href="https://www.codecademy.com/learn/learn-python-3">Codecademy - Learn Python</a></li>
+                <li><a href="https://www.freecodecamp.org/learn">FreeCodeCamp - Computer Science</a></li>
+            </ul>
+        </section>
+
+        <section id="cse">
+            <h2>Computer Science & Engineering</h2>
+            <ul>
+                <li><a href="https://www.edx.org/course/intro-to-computer-science">edX - Intro to Computer Science</a></li>
+                <li><a href="https://www.coursera.org/specializations/computer-science">Coursera - Computer Science Specializations</a></li>
+                <li><a href="https://www.udacity.com/course/intro-to-computer-science--ud1110">Udacity - Intro to Computer Science</a></li>
+            </ul>
+        </section>
+
+        <section id="iot">
+            <h2>Internet of Things</h2>
+            <ul>
+                <li><a href="https://www.udemy.com/course/internet-of-things-iot/">Udemy - Internet of Things (IoT)</a></li>
+                <li><a href="https://www.coursera.org/learn/iot">Coursera - Internet of Things</a></li>
+                <li><a href="https://www.edx.org/course/iot-fundamentals">edX - IoT Fundamentals</a></li>
+            </ul>
+        </section>
+
+        <section id="mechanical">
+            <h2>Mechanical Engineering</h2>
+            <ul>
+                <li><a href="https://nptel.ac.in/courses/112/106/112106282/">NPTEL - Mechanical Engineering</a></li>
+                <li><a href="https://www.coursera.org/specializations/mechanical-engineering">Coursera - Mechanical Engineering</a></li>
+                <li><a href="https://www.khanacademy.org/science/physics">Khan Academy - Physics</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Solution Matters. All rights reserved.</p>
+    </footer>
+
     <script>
-        const socket = io();
-        const userName = prompt('Enter your name:') || 'Anonymous';
-        const roomCode = prompt('Enter or create a chat room code:') || 'default';
+        // Inline JavaScript
+        function searchResources() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const sections = document.querySelectorAll('main section');
+            
+            sections.forEach(section => {
+                const links = section.querySelectorAll('ul li a');
+                let found = false;
 
-        socket.emit('joinRoom', roomCode);
+                links.forEach(link => {
+                    if (link.textContent.toLowerCase().includes(input)) {
+                        found = true;
+                    }
+                });
 
-        socket.on('message', (data) => {
-            const messageContainer = document.getElementById('messageContainer');
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('message', data.user === userName ? 'user' : '');
-
-            const messageParagraph = document.createElement('p');
-            messageParagraph.textContent = data.text;
-
-            const timestampDiv = document.createElement('div');
-            timestampDiv.classList.add('timestamp');
-            timestampDiv.textContent = new Date().toLocaleTimeString();
-
-            messageDiv.appendChild(messageParagraph);
-            messageDiv.appendChild(timestampDiv);
-            messageContainer.appendChild(messageDiv);
-
-            messageContainer.scrollTop = messageContainer.scrollHeight;
-        });
-
-        function sendMessage() {
-            const messageInput = document.getElementById('messageInput');
-            const messageText = messageInput.value.trim();
-
-            if (messageText === '') {
-                return;
-            }
-
-            socket.emit('chatMessage', { user: userName, message: messageText, roomCode: roomCode });
-            messageInput.value = '';
+                if (found) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
         }
 
-        document.getElementById('messageInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                sendMessage();
+        // Dark Mode Toggle
+        document.getElementById('darkModeToggle').addEventListener('change', (event) => {
+            if (event.target.checked) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
             }
         });
     </script>
