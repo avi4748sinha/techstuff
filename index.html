@@ -228,10 +228,38 @@
             height: 300px;
             width: 100%;
             margin-top: 20px;
+            display: none;
+            transition: opacity 0.5s;
         }
 
         #runCodeButton {
             margin-top: 10px;
+        }
+
+        #launcher {
+            width: 50px;
+            height: 50px;
+            background: #ff5722;
+            border-radius: 50%;
+            color: white;
+            font-size: 2em;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        #launcher:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        #launcher:active {
+            transform: scale(0.9);
         }
     </style>
     <!-- Ace Editor CDN -->
@@ -327,6 +355,8 @@
         <p>&copy; 2024 Solution Matters. All rights reserved.</p>
     </footer>
 
+    <div id="launcher">⚙️</div>
+
     <script>
         // Dark mode toggle script
         const darkModeToggle = document.getElementById('darkModeToggle');
@@ -358,7 +388,16 @@
                 document.getElementById('output').textContent = 'Error: ' + error.message;
             }
         });
+
+        // Launcher Animation
+        const launcher = document.getElementById('launcher');
+        const editorSection = document.getElementById('editor').parentElement;
+
+        launcher.addEventListener('click', () => {
+            const editorVisible = editorSection.style.display === 'block';
+            editorSection.style.display = editorVisible ? 'none' : 'block';
+            document.getElementById('editor').style.opacity = editorVisible ? '0' : '1';
+        });
     </script>
 </body>
 </html>
-
