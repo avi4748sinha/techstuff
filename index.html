@@ -251,6 +251,7 @@
             right: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 1000;
         }
 
         #launcher:hover {
@@ -260,6 +261,41 @@
 
         #launcher:active {
             transform: scale(0.9);
+        }
+
+        #pre-launcher {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background: #ff5722;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5em;
+            text-align: center;
+            line-height: 80px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 1000;
+        }
+
+        #pre-launcher.animate {
+            animation: preLaunchAnimation 0.5s forwards;
+        }
+
+        @keyframes preLaunchAnimation {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
         }
     </style>
     <!-- Ace Editor CDN -->
@@ -282,21 +318,18 @@
     
     <nav>
         <ul>
-            <li><a href="#cs">Computer Science</a></li>
+            <li><a href="#coding">Coding</a></li>
             <li><a href="#cse">Computer Science & Engineering</a></li>
             <li><a href="#iot">Internet of Things</a></li>
             <li><a href="#mech">Mechanical Engineering</a></li>
-            <li><a href="#lab">Lab to Practice Coding</a></li>
+            <li><a href="#lab">Lab</a></li>
         </ul>
     </nav>
 
     <main>
-        <section id="cs">
-            <h2>Computer Science</h2>
+        <section id="coding">
+            <h2>Coding</h2>
             <ul>
-                <li><a href="https://www.khanacademy.org/computing/computer-science">Khan Academy - Computer Science</a></li>
-                <li><a href="https://www.codecademy.com/learn/learn-python-3">Codecademy - Learn Python</a></li>
-                <li><a href="https://www.freecodecamp.org/learn">FreeCodeCamp - Computer Science</a></li>
                 <li><a href="https://www.coursera.org/learn/java-programming">Coursera - Java Programming</a></li>
                 <li><a href="https://www.udacity.com/course/intro-to-data-science--ud359">Udacity - Intro to Data Science</a></li>
                 <li><a href="https://www.udemy.com/course/learn-data-structures-and-algorithms/">Udemy - Data Structures and Algorithms</a></li>
@@ -355,6 +388,7 @@
         <p>&copy; 2024 Solution Matters. All rights reserved.</p>
     </footer>
 
+    <div id="pre-launcher">🚀</div>
     <div id="launcher">⚙️</div>
 
     <script>
@@ -391,12 +425,21 @@
 
         // Launcher Animation
         const launcher = document.getElementById('launcher');
+        const preLauncher = document.getElementById('pre-launcher');
         const editorSection = document.getElementById('editor').parentElement;
 
         launcher.addEventListener('click', () => {
-            const editorVisible = editorSection.style.display === 'block';
-            editorSection.style.display = editorVisible ? 'none' : 'block';
-            document.getElementById('editor').style.opacity = editorVisible ? '0' : '1';
+            if (preLauncher.classList.contains('animate')) {
+                preLauncher.classList.remove('animate');
+                editorSection.style.display = editorSection.style.display === 'block' ? 'none' : 'block';
+                document.getElementById('editor').style.opacity = editorSection.style.display === 'block' ? '1' : '0';
+            } else {
+                preLauncher.classList.add('animate');
+                setTimeout(() => {
+                    editorSection.style.display = 'block';
+                    document.getElementById('editor').style.opacity = '1';
+                }, 500); // Match this delay with the pre-launch animation duration
+            }
         });
     </script>
 </body>
