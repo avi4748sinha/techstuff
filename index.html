@@ -87,39 +87,42 @@
             <button onclick="sendMessage()">Send</button>
         </div>
     </div>
+    <script src="/socket.io/socket.io.js"></script>
     <script>
+        const socket = io();
         const userName = prompt('Enter your name:') || 'Anonymous';
+        const roomCode = prompt('Enter or create a chat room code:') || 'default';
 
-        function formatTime() {
-            const now = new Date();
-            return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-        }
+        socket.emit('joinRoom', roomCode);
 
-        function sendMessage() {
-            const messageInput = document.getElementById('messageInput');
+        socket.on('message', (data) => {
             const messageContainer = document.getElementById('messageContainer');
-            const messageText = messageInput.value.trim();
-
-            if (messageText === '') {
-                return;
-            }
-
             const messageDiv = document.createElement('div');
-            messageDiv.classList.add('message', 'user');
+            messageDiv.classList.add('message', data.user === userName ? 'user' : '');
 
             const messageParagraph = document.createElement('p');
-            messageParagraph.textContent = messageText;
+            messageParagraph.textContent = data.text;
 
             const timestampDiv = document.createElement('div');
             timestampDiv.classList.add('timestamp');
-            timestampDiv.textContent = formatTime();
+            timestampDiv.textContent = new Date().toLocaleTimeString();
 
             messageDiv.appendChild(messageParagraph);
             messageDiv.appendChild(timestampDiv);
             messageContainer.appendChild(messageDiv);
 
             messageContainer.scrollTop = messageContainer.scrollHeight;
+        });
 
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const messageText = messageInput.value.trim();
+
+            if (messageText === '') {
+                return;
+            }
+
+            socket.emit('chatMessage', { user: userName, message: messageText, roomCode: roomCode });
             messageInput.value = '';
         }
 
