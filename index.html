@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChillOut Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            width: 400px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .messages {
+            height: 400px;
+            padding: 10px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+            flex: 1;
+        }
+        .message {
+            margin-bottom: 15px;
+        }
+        .message p {
+            background: #b9fbc0;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            max-width: 80%;
+            margin: 0;
+        }
+        .message.user p {
+            background: #a2c2e5;
+            text-align: right;
+        }
+        .message .timestamp {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 5px;
+        }
+        .input-area {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background: #f1f1f1;
+        }
+        .input-area input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            outline: none;
+        }
+        .input-area input:focus {
+            border-color: #007bff;
+        }
+        .input-area button {
+            padding: 10px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        .input-area button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="messages" id="messageContainer"></div>
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="Type a message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <script>
+        const userName = prompt('Enter your name:') || 'Anonymous';
+
+        function formatTime() {
+            const now = new Date();
+            return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const messageContainer = document.getElementById('messageContainer');
+            const messageText = messageInput.value.trim();
+
+            if (messageText === '') {
+                return;
+            }
+
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', 'user');
+
+            const messageParagraph = document.createElement('p');
+            messageParagraph.textContent = messageText;
+
+            const timestampDiv = document.createElement('div');
+            timestampDiv.classList.add('timestamp');
+            timestampDiv.textContent = formatTime();
+
+            messageDiv.appendChild(messageParagraph);
+            messageDiv.appendChild(timestampDiv);
+            messageContainer.appendChild(messageDiv);
+
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+
+            messageInput.value = '';
+        }
+
+        document.getElementById('messageInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
