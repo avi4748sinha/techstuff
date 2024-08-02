@@ -7,16 +7,16 @@
     <style>
         /* Base Styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #eaeaea;
             color: #333;
             transition: background-color 0.3s, color 0.3s;
         }
 
         header {
-            background-color: #007bff;
+            background-color: #ff5722;
             color: white;
             text-align: center;
             padding: 20px;
@@ -26,45 +26,48 @@
 
         header h1 {
             margin: 0;
-            font-size: 3em;
+            font-size: 3.5em;
             font-weight: bold;
         }
 
         .logo span {
-            color: red;
-            font-size: 1.5em;
-            transform: rotate(-15deg);
+            color: #ff9800;
+            font-size: 1.6em;
+            transform: rotate(-10deg);
             display: inline-block;
         }
 
         header p {
-            margin: 5px 0 15px;
+            margin: 10px 0 20px;
+            font-size: 1.2em;
         }
 
         input[type="text"] {
-            padding: 10px;
-            border: none;
+            padding: 12px;
+            border: 2px solid #ff5722;
             border-radius: 4px;
-            width: 300px;
+            width: 320px;
             margin-right: 10px;
+            font-size: 1em;
         }
 
         button {
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: none;
             border-radius: 4px;
-            background-color: #0056b3;
+            background-color: #ff5722;
             color: white;
             cursor: pointer;
+            font-size: 1em;
         }
 
         button:hover {
-            background-color: #004494;
+            background-color: #e64a19;
         }
 
         nav {
-            background-color: #333;
-            padding: 10px;
+            background-color: #424242;
+            padding: 15px;
         }
 
         nav ul {
@@ -81,35 +84,35 @@
 
         nav ul li a {
             color: white;
-            padding: 14px 20px;
+            padding: 12px 20px;
             text-decoration: none;
             display: inline-block;
-            font-size: 1.1em;
+            font-size: 1.2em;
         }
 
         nav ul li a:hover {
-            background-color: #575757;
+            background-color: #616161;
         }
 
         main {
-            padding: 20px;
+            padding: 30px;
         }
 
         section {
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
+            margin-bottom: 25px;
+            border: 1px solid #ccc;
             border-radius: 8px;
             background-color: white;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         section h2 {
-            background-color: #007bff;
+            background-color: #ff5722;
             color: white;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 1.5em;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1.8em;
         }
 
         ul {
@@ -118,12 +121,12 @@
         }
 
         ul li {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         ul li a {
             text-decoration: none;
-            color: #007bff;
+            color: #ff5722;
             font-size: 1.1em;
         }
 
@@ -133,8 +136,8 @@
 
         footer {
             text-align: center;
-            padding: 10px;
-            background-color: #333;
+            padding: 15px;
+            background-color: #424242;
             color: white;
         }
 
@@ -214,13 +217,25 @@
         }
 
         .toggle-container input[type="checkbox"]:checked + .switch {
-            background: #007bff;
+            background: #ff5722;
         }
 
         .toggle-container input[type="checkbox"]:checked + .switch::before {
             transform: translateX(25px);
         }
+
+        #editor {
+            height: 300px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        #runCodeButton {
+            margin-top: 10px;
+        }
     </style>
+    <!-- Ace Editor CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js" integrity="sha512-pz4BJsX2TcU3UOGKylVYh/Mt3crqKZTQXVztz/7ExMbDVG4EdofB7tNpyflfHGJdnGEmvvNmgKQWu1qebx4MGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <header>
@@ -243,6 +258,7 @@
             <li><a href="#cse">Computer Science & Engineering</a></li>
             <li><a href="#iot">Internet of Things</a></li>
             <li><a href="#mech">Mechanical Engineering</a></li>
+            <li><a href="#lab">Lab to Practice Coding</a></li>
         </ul>
     </nav>
 
@@ -276,26 +292,34 @@
         <section id="iot">
             <h2>Internet of Things</h2>
             <ul>
-                <li><a href="https://www.udemy.com/course/internet-of-things-iot/">Udemy - Internet of Things (IoT)</a></li>
-                <li><a href="https://www.coursera.org/learn/iot">Coursera - Internet of Things</a></li>
-                <li><a href="https://www.edx.org/course/iot-fundamentals">edX - IoT Fundamentals</a></li>
-                <li><a href="https://www.youtube.com/playlist?list=PLx_vVd5pr0I2_LlLh8nJ9ftgzQUsol_B5">YouTube - IoT Projects</a></li>
-                <li><a href="https://www.ibm.com/cloud/learn/internet-of-things">IBM - Internet of Things</a></li>
-                <li><a href="https://www.nxp.com/education/education-internet-of-things:EDU-IOT">NXP - IoT Education</a></li>
+                <li><a href="https://www.coursera.org/learn/internet-of-things">Coursera - Internet of Things</a></li>
+                <li><a href="https://www.udemy.com/course/internet-of-things-iot-using-raspberry-pi-and-arduino/">Udemy - IoT using Raspberry Pi and Arduino</a></li>
+                <li><a href="https://www.edx.org/course/internet-of-things-iot">edX - Internet of Things (IoT)</a></li>
             </ul>
         </section>
 
         <section id="mech">
             <h2>Mechanical Engineering</h2>
             <ul>
-                <li><a href="https://www.coursera.org/specializations/mechanical-engineering">Coursera - Mechanical Engineering Specialization</a></li>
-                <li><a href="https://www.edx.org/learn/mechanical-engineering">edX - Mechanical Engineering Courses</a></li>
-                <li><a href="https://www.udemy.com/topic/mechanical-engineering/">Udemy - Mechanical Engineering</a></li>
+                <li><a href="https://www.coursera.org/specializations/mechanical-engineering">Coursera - Mechanical Engineering Specializations</a></li>
+                <li><a href="https://www.udacity.com/course/mechanical-engineering--nd106">Udacity - Mechanical Engineering</a></li>
                 <li><a href="https://www.khanacademy.org/science/physics">Khan Academy - Physics</a></li>
-                <li><a href="https://www.youtube.com/playlist?list=PLt8CgmILNz1z9pVVYp6ZkUezbhN5eE7uR">YouTube - Mechanical Engineering Tutorials</a></li>
-                <li><a href="https://www.nptel.ac.in/courses/105/105/105105146/">NPTEL - Mechanical Engineering</a></li>
-                <li><a href="https://www.mechmate.com/resources">MechMate - Mechanical Engineering Resources</a></li>
             </ul>
+        </section>
+
+        <section id="lab">
+            <h2>Lab to Practice Coding</h2>
+            <ul>
+                <li><a href="https://repl.it" target="_blank">Replit - Online Coding Environment</a></li>
+                <li><a href="https://jsfiddle.net" target="_blank">JSFiddle - Web Development Playground</a></li>
+                <li><a href="https://codesandbox.io" target="_blank">CodeSandbox - Online Code Editor</a></li>
+            </ul>
+            <p>These platforms provide a range of coding environments where you can practice coding in different languages and environments.</p>
+
+            <h2>Code Editor and Runner</h2>
+            <div id="editor">console.log("Hello, world!");</div>
+            <button id="runCodeButton">Run Code</button>
+            <pre id="output"></pre>
         </section>
     </main>
 
@@ -304,30 +328,37 @@
     </footer>
 
     <script>
-        document.getElementById('darkModeToggle').addEventListener('change', function() {
-            document.body.classList.toggle('dark-mode');
+        // Dark mode toggle script
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode', darkModeToggle.checked);
         });
 
+        // Search functionality
         function searchResources() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const sections = document.querySelectorAll('section');
-
             sections.forEach(section => {
-                const links = section.querySelectorAll('ul li a');
-                let found = false;
-
-                links.forEach(link => {
-                    if (link.textContent.toLowerCase().includes(query)) {
-                        found = true;
-                        link.style.display = 'block';
-                    } else {
-                        link.style.display = 'none';
-                    }
-                });
-
-                section.style.display = found ? 'block' : 'none';
+                const text = section.textContent.toLowerCase();
+                section.style.display = text.includes(query) ? 'block' : 'none';
             });
         }
+
+        // Ace Editor setup
+        const editor = ace.edit('editor');
+        editor.setTheme('ace/theme/monokai');
+        editor.session.setMode('ace/mode/javascript');
+
+        document.getElementById('runCodeButton').addEventListener('click', () => {
+            const code = editor.getValue();
+            try {
+                const output = eval(code);
+                document.getElementById('output').textContent = output;
+            } catch (error) {
+                document.getElementById('output').textContent = 'Error: ' + error.message;
+            }
+        });
     </script>
 </body>
 </html>
+
